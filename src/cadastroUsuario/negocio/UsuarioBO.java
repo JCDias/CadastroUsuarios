@@ -5,6 +5,9 @@
  */
 package cadastroUsuario.negocio;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.InputMismatchException;
 
 /**
@@ -14,7 +17,7 @@ import java.util.InputMismatchException;
 public class UsuarioBO {
     
     // Validar campos
-    public void ValidaDados(String nome,String cpf,String rg,String rua, String numero, String bairro, String celular, String email){
+    public void ValidaDados(String nome,String cpf,String rg,String data, String rua, String numero, String bairro, String celular, String email){
        
         //Validar campos preenchidos
         if(!nome.equals("") || !cpf.equals(".   .   -") || !rg.equals("") || !numero.equals("") || bairro.equals("")){
@@ -83,6 +86,18 @@ public class UsuarioBO {
   public static String imprimeCPF(String CPF) {
     return(CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "." +
       CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
+  }
+  
+  //Validar data
+  public void ValidadData(String data){
+  DateFormat df = new SimpleDateFormat ("dd/MM/yyyy");  
+    df.setLenient (false); // aqui o pulo do gato  
+    try {  
+        df.parse (data);  
+        // data válida  
+    } catch (ParseException ex) {  
+       System.out.println(ex);  
+    }
   }
 }
 
