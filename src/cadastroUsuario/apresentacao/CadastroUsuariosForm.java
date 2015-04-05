@@ -5,6 +5,7 @@
  */
 package cadastroUsuario.apresentacao;
 
+import cadastroUsuario.entidades.Usuario;
 import cadastroUsuario.negocio.UsuarioBO;
 import java.text.ParseException;
 import javax.swing.UIManager;
@@ -99,7 +100,7 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
         cmbCategoria = new javax.swing.JComboBox();
         jPanel6 = new javax.swing.JPanel();
         cmbTipo = new javax.swing.JComboBox();
-        dia = new javax.swing.JSpinner();
+        diaPagamento = new javax.swing.JSpinner();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         cmbHorario = new javax.swing.JComboBox();
@@ -429,8 +430,8 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
             }
         });
 
-        dia.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        dia.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
+        diaPagamento.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        diaPagamento.setModel(new javax.swing.SpinnerNumberModel(1, 1, 31, 1));
 
         jLabel17.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel17.setText("Dia de Vencimento:");
@@ -451,7 +452,7 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addGap(18, 18, 18)
-                        .addComponent(dia, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(diaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -465,7 +466,7 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
                 .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(diaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -567,21 +568,64 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         UsuarioBO usuarioBO = new UsuarioBO();
+        Usuario usuario = new Usuario();
 
+        //Pegar valor dos campos
+        String nome = txtNome.getText().trim();
         String cpf = txtCPF.getText().trim();
+        String rg = txtRG.getText().trim().toUpperCase();
+        String dataNasc = txtDataNascimento.getText().trim();
+        String sexo = cmbSexo.getSelectedItem().toString();
+        String rua = txtRua.getText().trim();
+        int numero = Integer.parseInt(txtNumero.getText().trim());
+        String complemento = txtComplemento.getText().trim();
+        String bairro = txtBairro.getText().trim();
+        String cidade = txtCidade.getText().trim();
+        String telefone = txtTelefone.getText().trim();
+        String celular = txtCelular.getText().trim();
+        String email = txtEmail.getText().trim();
+        if (rdoSim.isSelected()) {
+            String malha = "Sim";
+        }else{
+            String malha = "Não";
+        }
+        int tempo = Integer.parseInt(txtTempo.getText().trim());
+        String categoria = cmbCategoria.getSelectedItem().toString(); //Mudar para objeto de categoria
+        String tipo = cmbTipo.getSelectedItem().toString();
+        System.out.println(diaPagamento.getValue());
+        String horario;
+        //fim
+        //try {
+            //Chamar o valida dados
+            String cpfSemPonto = cpf.substring(0, 3) + cpf.substring(4, 7) + cpf.substring(8, 11) + cpf.substring(12, 14);
+            
+            // Verificar se o rdoSim ou o rdoNão ta marcado
+            
+            //Setar os valores no objeto usuario e a data de cadastro
+            
+            //chamar método que verifica se já existe usuário cadastrado com o mesmo cpf
+            
+            // Chamar o método de salvar os dados
+            
+            //Mensagem de sucesso
+            
+            //Salvar no log
+            
+        //} catch () {
 
+        //}
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void cmbTipoPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cmbTipoPopupMenuWillBecomeInvisible
         String selecionado = cmbTipo.getSelectedItem().toString();
         if (selecionado.equals("Mensalista")) {
             cmbHorario.setVisible(true);
-            dia.setVisible(true);
+            diaPagamento.setVisible(true);
             jLabel17.setVisible(true);
             jLabel18.setVisible(true);
         } else {
-            this.dia.setValue(1);
-            this.dia.setVisible(false);
+            this.diaPagamento.setValue(1);
+            this.diaPagamento.setVisible(false);
             cmbHorario.setVisible(false);
             jLabel17.setVisible(false);
             jLabel18.setVisible(false);
@@ -591,6 +635,7 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
     //Limpar campos
     public void reset() {
         txtNome.setText("");
+        txtCidade.setText("");
         txtCPF.setValue(null);
         txtRG.setText("");
         txtBairro.setText("");
@@ -606,11 +651,11 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
         this.txtTempo.setEnabled(false);
         this.rdoNao.setSelected(false);
         this.rdoSim.setSelected(false);
-        this.dia.setValue(1);
-        this.dia.setVisible(false);
+        this.diaPagamento.setValue(1);
+        this.diaPagamento.setVisible(false);
         cmbHorario.setVisible(false);
         jLabel17.setVisible(false);
-            jLabel18.setVisible(false);
+        jLabel18.setVisible(false);
         this.configuraCMB();
         this.mascara();
     }
@@ -630,9 +675,9 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
         cmbTipo.addItem("Mensalista");
         //Combo Box Categoria
         cmbCategoria.removeAllItems();
+        cmbCategoria.addItem("Público em Geral");
         cmbCategoria.addItem("Acadêmicos da Unimontes");
         cmbCategoria.addItem("Servidores da Unimontes");
-        cmbCategoria.addItem("Público em Geral");
         //Combo Box horário
         cmbHorario.removeAllItems();
         cmbHorario.addItem("Manhã 06h às 09h ");
@@ -695,7 +740,7 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
     private javax.swing.JComboBox cmbSexo;
     private javax.swing.JComboBox cmbTempo;
     private javax.swing.JComboBox cmbTipo;
-    private javax.swing.JSpinner dia;
+    private javax.swing.JSpinner diaPagamento;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
