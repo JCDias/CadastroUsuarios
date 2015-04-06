@@ -12,13 +12,14 @@ import java.util.Date;
  * @author SEC04
  */
 public class Usuario {
+    int id_usuario;
     String Nome;
     String cpf;
     String rg;
     String dataNasc;
     String sexo;
     String rua;
-    int numero;
+    String numero;
     String complemento;
     String bairro;
     String cidade;
@@ -31,9 +32,17 @@ public class Usuario {
     String tipo;
     String dia;
     String horario;
-    Date dataCadastro;
+    String dataCadastro;
     //Colocar responsável pelo cadastro 
 
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+    
     public String getNome() {
         return Nome;
     }
@@ -82,11 +91,11 @@ public class Usuario {
         this.rua = rua;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -186,11 +195,11 @@ public class Usuario {
         this.horario = horario;
     }
 
-    public Date getDataCadastro() {
+    public String getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
+    public void setDataCadastro(String dataCadastro) {
         this.dataCadastro = dataCadastro;
     } 
 }

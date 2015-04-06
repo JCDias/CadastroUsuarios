@@ -5,9 +5,23 @@
  */
 package cadastroUsuario.apresentacao;
 
+import cadastroUsuario.Excecoes.AQuantoTempoException;
+import cadastroUsuario.Excecoes.CamposVaziosException;
+import cadastroUsuario.Excecoes.CpfInvalidoException;
+import cadastroUsuario.Excecoes.CpfJaCadastradoException;
+import cadastroUsuario.Excecoes.DataInvalidaException;
+import cadastroUsuario.Excecoes.EmailInvalidoException;
+import cadastroUsuario.Excecoes.NomeInvalidoException;
+import cadastroUsuario.Excecoes.SelecioneException;
 import cadastroUsuario.entidades.Usuario;
 import cadastroUsuario.negocio.UsuarioBO;
+import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.text.DefaultFormatterFactory;
@@ -577,43 +591,104 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
         String dataNasc = txtDataNascimento.getText().trim();
         String sexo = cmbSexo.getSelectedItem().toString();
         String rua = txtRua.getText().trim();
-        int numero = Integer.parseInt(txtNumero.getText().trim());
+        String numero = txtNumero.getText().trim();
         String complemento = txtComplemento.getText().trim();
         String bairro = txtBairro.getText().trim();
         String cidade = txtCidade.getText().trim();
         String telefone = txtTelefone.getText().trim();
         String celular = txtCelular.getText().trim();
         String email = txtEmail.getText().trim();
+        String malha;
         if (rdoSim.isSelected()) {
-            String malha = "Sim";
-        }else{
-            String malha = "Não";
+            malha = "Sim";
+        } else {
+            malha = "Não";
         }
-        int tempo = Integer.parseInt(txtTempo.getText().trim());
+        String tempo = txtTempo.getText().trim();
+        String unidade = cmbTempo.getSelectedItem().toString();
         String categoria = cmbCategoria.getSelectedItem().toString(); //Mudar para objeto de categoria
         String tipo = cmbTipo.getSelectedItem().toString();
-        System.out.println(diaPagamento.getValue());
-        String horario;
+        String horario = cmbHorario.getSelectedItem().toString();
+        String dia = diaPagamento.getValue().toString();
         //fim
-        //try {
+        try {
             //Chamar o valida dados
-            String cpfSemPonto = cpf.substring(0, 3) + cpf.substring(4, 7) + cpf.substring(8, 11) + cpf.substring(12, 14);
-            
+            String cpfValida = cpf.replace(".", "");
+            cpfValida = cpfValida.replace("-", "");
+            usuarioBO.ValidaDados(nome, cpfValida, dataNasc, rg, rua, numero, bairro, cidade, celular, email);
             // Verificar se o rdoSim ou o rdoNão ta marcado
-            
-            //Setar os valores no objeto usuario e a data de cadastro
-            
-            //chamar método que verifica se já existe usuário cadastrado com o mesmo cpf
-            
-            // Chamar o método de salvar os dados
-            
-            //Mensagem de sucesso
-            
-            //Salvar no log
-            
-        //} catch () {
+            try {
+                if (rdoSim.isSelected()) {
+                    if (tempo.equals("")) {
+                        throw new AQuantoTempoException();
+                    }
+                } else if (!rdoNao.isSelected()) {
+                    throw new SelecioneException();
+                }
+                //Setar os valores no objeto usuario e a data de cadastro
+                usuario.setNome(nome);
+                usuario.setCpf(cpf);
+                usuario.setRg(rg);
+                usuario.setDataNasc(dataNasc);
+                usuario.setSexo(sexo);
+                usuario.setRua(rua);
+                usuario.setNumero(numero);
+                usuario.setComplemento(complemento);
+                usuario.setBairro(bairro);
+                usuario.setCidade(cidade);
+                usuario.setTelefone(telefone);
+                usuario.setCelular(celular);
+                usuario.setEmail(email);
+                usuario.setMalha(malha);
+                usuario.setTempo(tempo + " " + unidade);
+                usuario.setCategoria(categoria);
+                usuario.setTipo(tipo);
+                usuario.setDia(dia);
+                usuario.setHorario(horario);
+                //Cadastrar a data do cadatro do usuario
+                Date DataCad = new Date();
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                String datacadastro = formato.format(DataCad);
+                usuario.setDataCadastro(datacadastro);
 
-        //}
+                //Método que verifica se já existe usuário cadastrado com o mesmo cpf e salva os dados
+                usuarioBO.verificaCPF(usuario);
+
+                // Chamar o método de salvar os dados
+                //usuarioBO.salvar(usuario);
+                
+                //Mensagem de sucesso
+                JOptionPane.showMessageDialog(rootPane, "Cadastro realizado com sucesso!", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
+                this.reset();
+                //Salvar no log
+                
+            } catch (AQuantoTempoException e) {
+                JOptionPane.showMessageDialog(rootPane, "Preencha o campo A quanto tempo!", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
+                txtTempo.requestFocus();
+            } catch (CpfJaCadastradoException e) {
+                JOptionPane.showMessageDialog(rootPane, "CPF já cadastrado!", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
+                txtCPF.requestFocus();
+            } catch (SQLException ex) {
+                Logger.getLogger(CadastroUsuariosForm.class.getName()).log(Level.SEVERE, null, ex);
+            }catch(SelecioneException e){
+                JOptionPane.showMessageDialog(rootPane, "Selecione uma resposta para a pergunta: \nJá malha no Laboratório do Exercício?", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+        } catch (CamposVaziosException e) {
+            JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos!", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
+        } catch (NomeInvalidoException e) {
+            JOptionPane.showMessageDialog(rootPane, "O campo nome deve conter no mínimo 3 caracteres!", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
+            txtNome.requestFocus();
+        } catch (CpfInvalidoException e) {
+            JOptionPane.showMessageDialog(rootPane, "CPF Inválido!", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
+            txtCPF.requestFocus();
+        } catch (DataInvalidaException e) {
+            JOptionPane.showMessageDialog(rootPane, "Data Inválida !", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
+            txtDataNascimento.requestFocus();
+        } catch (EmailInvalidoException e) {
+            JOptionPane.showMessageDialog(rootPane, "Email inválido!", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
+            txtEmail.requestFocus();
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void cmbTipoPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cmbTipoPopupMenuWillBecomeInvisible

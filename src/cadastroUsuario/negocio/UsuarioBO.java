@@ -7,8 +7,13 @@ package cadastroUsuario.negocio;
 
 import cadastroUsuario.Excecoes.CamposVaziosException;
 import cadastroUsuario.Excecoes.CpfInvalidoException;
+import cadastroUsuario.Excecoes.CpfJaCadastradoException;
+import cadastroUsuario.Excecoes.DataInvalidaException;
 import cadastroUsuario.Excecoes.EmailInvalidoException;
 import cadastroUsuario.Excecoes.NomeInvalidoException;
+import cadastroUsuario.dados.UsuarioDAO;
+import cadastroUsuario.entidades.Usuario;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,8 +31,10 @@ public class UsuarioBO {
     public void ValidaDados(String nome, String cpf, String data, String rg, String rua, String numero, String bairro, String cidade, String celular, String email) {
 
         //Validar campos preenchidos
-        if (!nome.equals("") || !cpf.equals(".   .   -") || !data.equals("/  /") || !rg.equals("") || !numero.equals("") || bairro.equals("") || !celular.equals("(  )     -") || !email.equals("")) {
-            //Validar amanho do nome
+        if (nome.equals("") || cpf.equals(".   .   -") || data.equals("/  /") || rg.equals("") || numero.equals("") || bairro.equals("") || celular.equals("(  )     -") || email.equals("")) {
+            throw new CamposVaziosException();
+        }else{
+            //Validar tamanho do nome
             if(nome.length()<3){
                 throw new NomeInvalidoException();
             }
@@ -37,20 +44,35 @@ public class UsuarioBO {
                 throw new CpfInvalidoException();
             }
             
+            //Pegar no pc da unimontes o valida idade e substituir aki
             //Validar Data de nascimento
+            if(ValidadData(data)==false){
+                throw new DataInvalidaException();
+            }
             
             //Valida email
             if(validaEmail(email)==false){
                 throw new EmailInvalidoException();
             }
-            
-        }else{
-            throw new CamposVaziosException();
         }
 
     }
     // Fim validar campos
-
+    
+    //Verifica se o cpf informado já esta cadastrado e salvar
+    public void verificaCPF(Usuario usuario) throws SQLException{
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        
+        Usuario user = usuarioDAO.selecionarCpfIgual(usuario.getCpf());
+        
+        if(user==null){
+            usuarioDAO.cadastrarUsuario(usuario);
+        }else{
+            throw new CpfJaCadastradoException();
+        }
+    }
+    
+    
     //Validar CPF
     public static boolean isCPF(String CPF) {
 // considera-se erro CPF's formados por uma sequencia de numeros iguais
@@ -120,15 +142,15 @@ public class UsuarioBO {
 
     //Corrigir valida data pesquisar validar data de nascimento
     //Validar data
-    public void ValidadData(String data) {
+    public boolean ValidadData(String data) {
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        df.setLenient(false); // aqui o pulo do gato  
+        df.setLenient(false);
         try {
             df.parse(data);
-            System.out.println(data);
-            // data válida  
+            return true;
+            
         } catch (ParseException ex) {
-            System.out.println(ex);
+            return false;
         }
     }
     
