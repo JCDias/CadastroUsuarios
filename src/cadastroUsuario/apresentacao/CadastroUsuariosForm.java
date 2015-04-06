@@ -757,6 +757,12 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
         cmbCategoria.addItem("Público em Geral");
         cmbCategoria.addItem("Acadêmicos da Unimontes");
         cmbCategoria.addItem("Servidores da Unimontes");
+        cmbCategoria.addItem("Polícia Militar");
+        cmbCategoria.addItem("Bombeiro");
+        cmbCategoria.addItem("Tribunal de Justiça");
+        cmbCategoria.addItem("Agente de Seg. Penitenciário");
+        cmbCategoria.addItem("Polícia Civil");
+        cmbCategoria.addItem("SAMU");
         //Combo Box horário
         cmbHorario.removeAllItems();
         cmbHorario.addItem("Manhã 06h às 09h ");

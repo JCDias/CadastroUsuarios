@@ -32,7 +32,7 @@ public class UsuarioBO {
     public void ValidaDados(String nome, String cpf, String data, String rg, String rua, String numero, String bairro, String cidade, String celular, String email) {
 
         //Validar campos preenchidos
-        if (nome.equals("") || cpf.equals(".   .   -") || data.equals("/  /") || rg.equals("") || numero.equals("") || bairro.equals("") || celular.equals("(  )     -") || email.equals("")) {
+        if (nome.equals("") || cpf.equals(".   .   -") || data.equals("/  /") || rg.equals("") || numero.equals("") || bairro.equals("") || celular.equals("(  )     -")) {
             throw new CamposVaziosException();
         } else {
             //Validar tamanho do nome
@@ -51,29 +51,31 @@ public class UsuarioBO {
                 throw new DataInvalidaException();
             } else {
                 Utils util = new Utils();
-                data = data.replace("/","-");
+                data = data.replace("/", "-");
                 int idade = util.calculaIdade(data, "dd-MM-yyyy");
                 System.out.println(idade);
-                if (idade < 10 || idade>99) {
+                if (idade < 10 || idade > 99) {
                     throw new DataInvalidaException();
                 }
             }
 
             //Valida email
-            if (validaEmail(email) == false) {
-                throw new EmailInvalidoException();
+            if (!email.equals("")) {
+                if (validaEmail(email) == false) {
+                    throw new EmailInvalidoException();
+                }
             }
         }
-
+        
     }
     // Fim validar campos
 
     //Verifica se o cpf informado já esta cadastrado e salvar
     public void verificaCPF(Usuario usuario) throws SQLException {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-
+        
         Usuario user = usuarioDAO.selecionarCpfIgual(usuario.getCpf());
-
+        
         if (user == null) {
             usuarioDAO.cadastrarUsuario(usuario);
         } else {
@@ -92,7 +94,7 @@ public class UsuarioBO {
                 || (CPF.length() != 11)) {
             return (false);
         }
-
+        
         char dig10, dig11;
         int sm, i, r, num, peso;
 
@@ -109,7 +111,7 @@ public class UsuarioBO {
                 sm = sm + (num * peso);
                 peso = peso - 1;
             }
-
+            
             r = 11 - (sm % 11);
             if ((r == 10) || (r == 11)) {
                 dig10 = '0';
@@ -124,7 +126,7 @@ public class UsuarioBO {
                 sm = sm + (num * peso);
                 peso = peso - 1;
             }
-
+            
             r = 11 - (sm % 11);
             if ((r == 10) || (r == 11)) {
                 dig11 = '0';
@@ -142,7 +144,7 @@ public class UsuarioBO {
             return (false);
         }
     }
-
+    
     public static String imprimeCPF(String CPF) {
         return (CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "."
                 + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
@@ -156,7 +158,7 @@ public class UsuarioBO {
         try {
             df.parse(data);
             return true;
-
+            
         } catch (ParseException ex) {
             return false;
         }
