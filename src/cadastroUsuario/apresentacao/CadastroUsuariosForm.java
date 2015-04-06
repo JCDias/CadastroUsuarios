@@ -46,13 +46,13 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
                 try {
                     UIManager.setLookAndFeel(info.getClassName());
                 } catch (ClassNotFoundException ex) {
-
+                    
                 } catch (InstantiationException ex) {
-
+                    
                 } catch (IllegalAccessException ex) {
-
+                    
                 } catch (UnsupportedLookAndFeelException ex) {
-
+                    
                 }
                 break;
             }
@@ -102,7 +102,7 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtCidade = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         rdoSim = new javax.swing.JRadioButton();
@@ -339,11 +339,11 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadastroUsuario/icones/editdelete.png"))); // NOI18N
-        jButton3.setText("Cancelar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadastroUsuario/icones/editdelete.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -511,7 +511,7 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(182, 182, 182))
         );
         jPanel2Layout.setVerticalGroup(
@@ -529,7 +529,7 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -549,9 +549,9 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.reset();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void rdoNaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdoNaoMouseClicked
         this.txtTempo.setEnabled(false);
@@ -640,11 +640,16 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
                 usuario.setCelular(celular);
                 usuario.setEmail(email);
                 usuario.setMalha(malha);
-                usuario.setTempo(tempo + " " + unidade);
+                if (malha.equals("Sim")) {
+                    usuario.setTempo(tempo + " " + unidade);
+                }
                 usuario.setCategoria(categoria);
                 usuario.setTipo(tipo);
-                usuario.setDia(dia);
-                usuario.setHorario(horario);
+                if (tipo.equals("Mensalista")) {
+                    usuario.setDia(dia);
+                    usuario.setHorario(horario);
+                }// verificar se o diarista precida do horário
+
                 //Cadastrar a data do cadatro do usuario
                 Date DataCad = new Date();
                 SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -656,12 +661,11 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
 
                 // Chamar o método de salvar os dados
                 //usuarioBO.salvar(usuario);
-                
                 //Mensagem de sucesso
                 JOptionPane.showMessageDialog(rootPane, "Cadastro realizado com sucesso!", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
                 this.reset();
                 //Salvar no log
-                
+
             } catch (AQuantoTempoException e) {
                 JOptionPane.showMessageDialog(rootPane, "Preencha o campo A quanto tempo!", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
                 txtTempo.requestFocus();
@@ -670,7 +674,7 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
                 txtCPF.requestFocus();
             } catch (SQLException ex) {
                 Logger.getLogger(CadastroUsuariosForm.class.getName()).log(Level.SEVERE, null, ex);
-            }catch(SelecioneException e){
+            } catch (SelecioneException e) {
                 JOptionPane.showMessageDialog(rootPane, "Selecione uma resposta para a pergunta: \nJá malha no Laboratório do Exercício?", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
             }
             
@@ -734,7 +738,7 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
         this.configuraCMB();
         this.mascara();
     }
-
+    
     public void configuraCMB() {
         cmbTempo.removeAllItems();
         cmbTempo.addItem("Dias");
@@ -809,6 +813,7 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox cmbCategoria;
     private javax.swing.JComboBox cmbHorario;
@@ -816,7 +821,6 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
     private javax.swing.JComboBox cmbTempo;
     private javax.swing.JComboBox cmbTipo;
     private javax.swing.JSpinner diaPagamento;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
