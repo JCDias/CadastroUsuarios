@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -107,5 +108,69 @@ public class UsuarioDAO {
                 conexao.close();
             }
         }
+    }
+    
+    //Selecionar Usuarios para gerar relatório
+    private static final String SQL_SELECT_RELATORIO_USUARIOS = "SELECT NOME, CPF, MALHA, TEMPO, CATEGORIA, TIPO FROM USUARIOS";
+    public ArrayList<Usuario> SelecionarAtividade() throws SQLException {
+        ArrayList<Usuario> listaTodosUsuarios = new ArrayList<>();
+        Usuario usuarioCadastrado = null;
+
+        Connection conexao = null;
+        PreparedStatement comando = null;
+        ResultSet resultado = null;
+
+        try {
+
+            conexao = BancoDadosUtil.getConnection();
+
+            comando = conexao.prepareStatement(SQL_SELECT_RELATORIO_USUARIOS);
+            
+
+            resultado = comando.executeQuery();
+            listaTodosUsuarios.removeAll(listaTodosUsuarios);
+
+            //percorrendo os registros encontrados  
+            if (resultado.next()) {
+                listaTodosUsuarios = new ArrayList<Usuario>();
+                do {
+                    //instanciando objeto   
+                    usuarioCadastrado = new Usuario();
+
+
+                    /*setando atributos de acordo com os seus tipos primitivos*/
+                    usuarioCadastrado.setNome(resultado.getString("NOME"));
+                    usuarioCadastrado.setCpf(resultado.getString("CPF"));
+                    usuarioCadastrado.setMalha(resultado.getString("MALHA"));
+                    if(resultado.getString("TEMPO")==null){
+                        usuarioCadastrado.setTempo("-");
+                    }else{
+                        usuarioCadastrado.setTempo(resultado.getString("TEMPO"));
+                    }
+                    
+                    usuarioCadastrado.setCategoria(resultado.getString("CATEGORIA"));
+                    usuarioCadastrado.setTipo(resultado.getString("TIPO"));
+                    
+                    //add a lista de objetos encontrados e setados  
+                    listaTodosUsuarios.add(usuarioCadastrado);
+                } while (resultado.next());
+            }
+
+            conexao.commit();
+
+        } catch (Exception e) {
+            if (conexao != null) {
+                conexao.rollback();
+            }
+
+        } finally {
+            if (comando != null && !comando.isClosed()) {
+                comando.close();
+            }
+            if (conexao != null && !conexao.isClosed()) {
+                conexao.close();
+            }
+        }
+        return listaTodosUsuarios;
     }
 }

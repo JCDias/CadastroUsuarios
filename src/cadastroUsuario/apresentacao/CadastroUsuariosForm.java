@@ -31,7 +31,7 @@ import javax.swing.text.MaskFormatter;
  *
  * @author PC1
  */
-public class CadastroUsuariosForm extends javax.swing.JFrame {
+public class CadastroUsuariosForm extends javax.swing.JDialog {
 
     /**
      * Creates new form CadastroUsuariosForm
@@ -40,6 +40,7 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.reset();
+        setModal(true);
         //Layout da janela
         for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
             if ("Metal".equals(info.getName())) {
@@ -781,7 +782,7 @@ public class CadastroUsuariosForm extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
