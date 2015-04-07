@@ -140,7 +140,6 @@ public class UsuarioDAO {
 
                     /*setando atributos de acordo com os seus tipos primitivos*/
                     usuarioCadastrado.setNome(resultado.getString("NOME"));
-                    System.out.println(usuarioCadastrado.getNome());
                     usuarioCadastrado.setCpf(resultado.getString("CPF"));
                     usuarioCadastrado.setMalha(resultado.getString("MALHA"));
                     if(resultado.getString("TEMPO")==null){
