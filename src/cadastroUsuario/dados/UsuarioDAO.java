@@ -140,10 +140,10 @@ public class UsuarioDAO {
 
                     /*setando atributos de acordo com os seus tipos primitivos*/
                     usuarioCadastrado.setNome(resultado.getString("NOME"));
+                    System.out.println(usuarioCadastrado.getNome());
                     usuarioCadastrado.setCpf(resultado.getString("CPF"));
                     usuarioCadastrado.setMalha(resultado.getString("MALHA"));
-                    System.out.println("Tempo: " +resultado.getString("TEMPO"));
-                    if(resultado.getString("TEMPO").equals("")){
+                    if(resultado.getString("TEMPO")==null){
                         usuarioCadastrado.setTempo("-");
                     }else{
                         usuarioCadastrado.setTempo(resultado.getString("TEMPO"));
@@ -163,7 +163,6 @@ public class UsuarioDAO {
             if (conexao != null) {
                 conexao.rollback();
             }
-            throw new RuntimeException(e);
 
         } finally {
             if (comando != null && !comando.isClosed()) {
