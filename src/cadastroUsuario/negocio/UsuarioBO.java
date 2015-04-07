@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -174,6 +175,18 @@ public class UsuarioBO {
             return true;
         }
         return false;
+    }
+    
+    //Listar Usuarios para relatório
+    public ArrayList<Usuario> listarUsuarios() throws SQLException {
+
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        ArrayList<Usuario> listaUsuario = new ArrayList<>();
+
+        listaUsuario = usuarioDAO.SelecionarAtividade();
+
+        return listaUsuario;
+
     }
 }
 
