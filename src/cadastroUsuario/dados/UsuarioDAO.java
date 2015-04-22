@@ -109,9 +109,10 @@ public class UsuarioDAO {
             }
         }
     }
-    
+
     //Selecionar Usuarios para gerar relatório
-    private static final String SQL_SELECT_RELATORIO_USUARIOS = "SELECT NOME, CPF, MALHA, TEMPO, CATEGORIA, TIPO FROM USUARIOS";
+    private static final String SQL_SELECT_RELATORIO_USUARIOS = "SELECT NOME, CPF, MALHA, TEMPO, CATEGORIA, TIPO FROM USUARIOS order by(nome) asc";
+
     public ArrayList<Usuario> SelecionarAtividade() throws SQLException {
         ArrayList<Usuario> listaTodosUsuarios = new ArrayList<>();
         Usuario usuarioCadastrado = null;
@@ -125,7 +126,6 @@ public class UsuarioDAO {
             conexao = BancoDadosUtil.getConnection();
 
             comando = conexao.prepareStatement(SQL_SELECT_RELATORIO_USUARIOS);
-            
 
             resultado = comando.executeQuery();
             listaTodosUsuarios.removeAll(listaTodosUsuarios);
@@ -142,15 +142,19 @@ public class UsuarioDAO {
                     usuarioCadastrado.setNome(resultado.getString("NOME"));
                     usuarioCadastrado.setCpf(resultado.getString("CPF"));
                     usuarioCadastrado.setMalha(resultado.getString("MALHA"));
-                    if(resultado.getString("TEMPO")==null){
+                    if (resultado.getString("TEMPO") == null) {
                         usuarioCadastrado.setTempo("-");
-                    }else{
+                    } else {
                         usuarioCadastrado.setTempo(resultado.getString("TEMPO"));
                     }
-                    
+
                     usuarioCadastrado.setCategoria(resultado.getString("CATEGORIA"));
-                    usuarioCadastrado.setTipo(resultado.getString("TIPO"));
-                    
+                    if (resultado.getString("TIPO") == null) {
+                        usuarioCadastrado.setTipo("-");
+                    } else {
+                        usuarioCadastrado.setTipo(resultado.getString("TIPO"));
+                    }
+
                     //add a lista de objetos encontrados e setados  
                     listaTodosUsuarios.add(usuarioCadastrado);
                 } while (resultado.next());

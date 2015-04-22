@@ -47,13 +47,13 @@ public class CadastroUsuariosForm extends javax.swing.JDialog {
                 try {
                     UIManager.setLookAndFeel(info.getClassName());
                 } catch (ClassNotFoundException ex) {
-                    
+
                 } catch (InstantiationException ex) {
-                    
+
                 } catch (IllegalAccessException ex) {
-                    
+
                 } catch (UnsupportedLookAndFeelException ex) {
-                    
+
                 }
                 break;
             }
@@ -113,7 +113,7 @@ public class CadastroUsuariosForm extends javax.swing.JDialog {
         cmbTempo = new javax.swing.JComboBox();
         jLabel16 = new javax.swing.JLabel();
         cmbCategoria = new javax.swing.JComboBox();
-        jPanel6 = new javax.swing.JPanel();
+        jPanelTipo = new javax.swing.JPanel();
         cmbTipo = new javax.swing.JComboBox();
         diaPagamento = new javax.swing.JSpinner();
         jLabel17 = new javax.swing.JLabel();
@@ -383,6 +383,15 @@ public class CadastroUsuariosForm extends javax.swing.JDialog {
         jLabel16.setText("Categoria:");
 
         cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCategoria.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                cmbCategoriaPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -431,7 +440,7 @@ public class CadastroUsuariosForm extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
+        jPanelTipo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 0, 14))); // NOI18N
 
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbTipo.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
@@ -455,35 +464,35 @@ public class CadastroUsuariosForm extends javax.swing.JDialog {
 
         cmbHorario.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelTipoLayout = new javax.swing.GroupLayout(jPanelTipo);
+        jPanelTipo.setLayout(jPanelTipoLayout);
+        jPanelTipoLayout.setHorizontalGroup(
+            jPanelTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTipoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addGroup(jPanelTipoLayout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addGap(18, 18, 18)
                         .addComponent(diaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addGroup(jPanelTipoLayout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmbHorario, 0, 155, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        jPanelTipoLayout.setVerticalGroup(
+            jPanelTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTipoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(diaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanelTipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(cmbHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -499,7 +508,7 @@ public class CadastroUsuariosForm extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(10, 10, 10)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanelTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(19, 19, 19))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -526,7 +535,7 @@ public class CadastroUsuariosForm extends javax.swing.JDialog {
                 .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jPanelTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
@@ -555,15 +564,23 @@ public class CadastroUsuariosForm extends javax.swing.JDialog {
 
     private void rdoNaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdoNaoMouseClicked
         this.txtTempo.setEnabled(false);
+        this.txtTempo.setText("");
         this.rdoSim.setSelected(false);
-        //this.cmbTempo.setEnabled(false);
+        if (!rdoNao.isSelected() && !rdoSim.isSelected()) {
+            this.txtTempo.setEnabled(false);
+            this.txtTempo.setText("");
+        }
+
     }//GEN-LAST:event_rdoNaoMouseClicked
 
     private void rdoSimMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdoSimMouseClicked
         this.txtTempo.setEnabled(true);
         this.txtTempo.requestFocus();
         this.rdoNao.setSelected(false);
-        //this.cmbTempo.setEnabled(true);
+        if (!rdoNao.isSelected() && !rdoSim.isSelected()) {
+            this.txtTempo.setEnabled(false);
+            this.txtTempo.setText("");
+        }
     }//GEN-LAST:event_rdoSimMouseClicked
 
     private void txtNumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyTyped
@@ -644,12 +661,14 @@ public class CadastroUsuariosForm extends javax.swing.JDialog {
                     usuario.setTempo(tempo + " " + unidade);
                 }
                 usuario.setCategoria(categoria);
-                usuario.setTipo(tipo);
-                if (tipo.equals("Mensalista")) {
-                    usuario.setDia(dia);
-                    usuario.setHorario(horario);
-                }// verificar se o diarista precida do horário
 
+                if (!categoria.equals("Monitor(a)")) {
+                    usuario.setTipo(tipo);
+                    if (tipo.equals("Mensalista")) {
+                        usuario.setDia(dia);
+                        usuario.setHorario(horario);
+                    }
+                }
                 //Cadastrar a data do cadatro do usuario
                 Date DataCad = new Date();
                 SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -677,7 +696,7 @@ public class CadastroUsuariosForm extends javax.swing.JDialog {
             } catch (SelecioneException e) {
                 JOptionPane.showMessageDialog(rootPane, "Selecione uma resposta para a pergunta: \nJá malha no Laboratório do Exercício?", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
             }
-            
+
         } catch (CamposVaziosException e) {
             JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos!", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
         } catch (NomeInvalidoException e) {
@@ -687,7 +706,7 @@ public class CadastroUsuariosForm extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, "CPF Inválido!", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
             txtCPF.requestFocus();
         } catch (DataInvalidaException e) {
-            JOptionPane.showMessageDialog(rootPane, "Data Inválida !", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "Data de nascimento inválida!", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
             txtDataNascimento.requestFocus();
         } catch (EmailInvalidoException e) {
             JOptionPane.showMessageDialog(rootPane, "Email inválido!", "Cadastro de Usuários", JOptionPane.INFORMATION_MESSAGE);
@@ -711,6 +730,27 @@ public class CadastroUsuariosForm extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_cmbTipoPopupMenuWillBecomeInvisible
 
+    private void cmbCategoriaPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cmbCategoriaPopupMenuWillBecomeInvisible
+        String selecionado = cmbCategoria.getSelectedItem().toString();
+        if (selecionado.equals("Monitor(a)")) {
+            cmbTipo.setVisible(false);
+            this.configuraCMBTipo();
+            this.diaPagamento.setValue(1);
+            this.diaPagamento.setVisible(false);
+            cmbHorario.setVisible(false);
+            jLabel17.setVisible(false);
+            jLabel18.setVisible(false);
+        } else {
+            this.configuraCMBTipo();
+            cmbTipo.setVisible(true);
+            this.diaPagamento.setValue(1);
+            this.diaPagamento.setVisible(false);
+            cmbHorario.setVisible(false);
+            jLabel17.setVisible(false);
+            jLabel18.setVisible(false);
+        }
+    }//GEN-LAST:event_cmbCategoriaPopupMenuWillBecomeInvisible
+
     //Limpar campos
     public void reset() {
         txtNome.setText("");
@@ -727,6 +767,7 @@ public class CadastroUsuariosForm extends javax.swing.JDialog {
         txtDataNascimento.setValue(null);
         txtComplemento.setText("");
         txtNome.requestFocus();
+        cmbTipo.setVisible(true);
         this.txtTempo.setEnabled(false);
         this.rdoNao.setSelected(false);
         this.rdoSim.setSelected(false);
@@ -738,37 +779,58 @@ public class CadastroUsuariosForm extends javax.swing.JDialog {
         this.configuraCMB();
         this.mascara();
     }
-    
-    public void configuraCMB() {
+
+    public void configuraCMBtempo() {
         cmbTempo.removeAllItems();
         cmbTempo.addItem("Dias");
         cmbTempo.addItem("Meses");
         cmbTempo.addItem("Anos");
-        //Combo box sexo
+    }
+
+    public void configuraCMBSexo() {
         cmbSexo.removeAllItems();
         cmbSexo.addItem("Masculino");
         cmbSexo.addItem("Feminino");
-        //Combo Box Tipo
+    }
+
+    public void configuraCMBTipo() {
         cmbTipo.removeAllItems();
         cmbTipo.addItem("Diarista");
         cmbTipo.addItem("Mensalista");
-        //Combo Box Categoria
+    }
+
+    public void configuraCMBCategoria() {
         cmbCategoria.removeAllItems();
         cmbCategoria.addItem("Público em Geral");
         cmbCategoria.addItem("Acadêmicos da Unimontes");
         cmbCategoria.addItem("Servidores da Unimontes");
+        cmbCategoria.addItem("Monitor(a)");
         cmbCategoria.addItem("Polícia Militar");
         cmbCategoria.addItem("Bombeiro");
         cmbCategoria.addItem("Tribunal de Justiça");
         cmbCategoria.addItem("Agente de Seg. Penitenciário");
         cmbCategoria.addItem("Polícia Civil");
         cmbCategoria.addItem("SAMU");
-        //Combo Box horário
+    }
+
+    public void configuraCMBHorario() {
         cmbHorario.removeAllItems();
         cmbHorario.addItem("Manhã 06h às 09h ");
         cmbHorario.addItem("Manhã 09h às 12h ");
         cmbHorario.addItem("Tarde 15h às 18h ");
         cmbHorario.addItem("Noite 18h às 21h ");
+    }
+
+    public void configuraCMB() {
+        this.configuraCMBtempo();
+        //Combo box sexo
+        this.configuraCMBSexo();
+        //Combo Box Tipo
+        this.configuraCMBTipo();
+        //Combo Box Categoria
+        this.configuraCMBCategoria();
+        //Combo Box horário
+        this.configuraCMBHorario();
     }
 
     //colocar mascara nos campos
@@ -782,7 +844,7 @@ public class CadastroUsuariosForm extends javax.swing.JDialog {
             e.printStackTrace();
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
@@ -815,8 +877,8 @@ public class CadastroUsuariosForm extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanelTipo;
     private javax.swing.JRadioButton rdoNao;
     private javax.swing.JRadioButton rdoSim;
     private javax.swing.JTextField txtBairro;

@@ -18,6 +18,9 @@
 	<variable name="TOTAL_DIARISTAS" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{tipo} == 'Diarista' ? 1 : 0]]></variableExpression>
 	</variable>
+	<variable name="TOTAL_MONITORES" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{categoria} == 'Monitor(a)' ? 1 : 0]]></variableExpression>
+	</variable>
 	<background>
 		<band/>
 	</background>
@@ -148,7 +151,7 @@
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="67">
+		<band height="87">
 			<textField>
 				<reportElement x="0" y="6" width="164" height="20" uuid="5b23106e-f43e-4d91-b745-018c0ebb674c"/>
 				<textElement>
@@ -169,6 +172,13 @@
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Total de Diaristas: "+$V{TOTAL_DIARISTAS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="67" width="164" height="20" uuid="1c3c9145-13aa-4f4b-bd14-d938d77e259f"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total de Monitores: "+$V{TOTAL_MONITORES}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>
